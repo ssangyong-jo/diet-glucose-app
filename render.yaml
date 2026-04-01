@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: diet-glucose-mobile-webapp
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -w 2 -b 0.0.0.0:$PORT diet_glucose_mobile_webapp_v2_deploy_ready:app
+    healthCheckPath: /healthz
+    envVars:
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: SPREADSHEET_NAME
+        value: 혈당_식단_기록기
+      - key: GOOGLE_SERVICE_ACCOUNT_JSON
+        sync: false
